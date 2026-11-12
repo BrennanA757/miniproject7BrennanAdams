@@ -1,12 +1,22 @@
-# Name: Brennan Adams
-# Class: INF601 Advanced Programming with Python
-# Mini Project 1
+"""
+Name: Brennan Adams
+Class: Advanced Programming with Python
+Project: Mini Project 7 - MCP Server
+"""
 
 import os
 import requests
+from fastmcp import FastMCP
+
+mcp = FastMCP("practice-hub")
 
 BASE = os.environ.get("PRACTICE_API_URL")
 TOKEN = os.environ.get("PRACTICE_API_TOKEN")
+
+HEADERS = {
+    "Authorization": f"Bearer {TOKEN}",
+    "Content-Type": "application/json"
+}
 
 
 class PracticeHubClient:
@@ -25,6 +35,7 @@ class PracticeHubClient:
         elif (status_code == 422):
             print("422 Error: Field is either missing or is too short. Please ensure that all parameters are valid.")
 
+    @mcp.tool()
     def create_post(self, title, body="", tags=None):
         try:
             resp = requests.post(f"{self.base}/api/v1/posts", headers=self.headers,
@@ -38,6 +49,7 @@ class PracticeHubClient:
 
         return resp.json()
 
+    @mcp.tool()
     def list_posts(self, mine=False, tag=None):
         params = {"mine": mine}
         if tag:
@@ -55,6 +67,7 @@ class PracticeHubClient:
 
         return resp.json()
 
+    @mcp.tool()
     def get_post(self, post_id: int):
         try:
             resp = requests.get(
@@ -67,6 +80,7 @@ class PracticeHubClient:
             return None
         return resp.json()
 
+    @mcp.tool()
     def update_post(self, post_id: int, body: str):
         try:
             post = requests.patch(
@@ -80,6 +94,7 @@ class PracticeHubClient:
 
         return post.json()
 
+    @mcp.tool()
     def delete_post(self, post_id: int) -> bool:
         try:
             resp = requests.delete(f"{self.base}/api/v1/posts/{post_id}",
