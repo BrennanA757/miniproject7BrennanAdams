@@ -7,6 +7,7 @@ Project: Mini Project 7 - MCP Server
 import os
 import requests
 from fastmcp import FastMCP
+from fastmcp.tools import tool
 
 mcp = FastMCP("practice-hub")
 
@@ -35,8 +36,9 @@ class PracticeHubClient:
         elif (status_code == 422):
             print("422 Error: Field is either missing or is too short. Please ensure that all parameters are valid.")
 
-    @mcp.tool()
+    @tool
     def create_post(self, title, body="", tags=None):
+        """Create a new post on Practice Hub"""
         try:
             resp = requests.post(f"{self.base}/api/v1/posts", headers=self.headers,
                                  json={"title": title, "body": body, "tags": tags or []})
@@ -49,8 +51,9 @@ class PracticeHubClient:
 
         return resp.json()
 
-    @mcp.tool()
+    @tool
     def list_posts(self, mine=False, tag=None):
+        """List all of the posts under this profile."""
         params = {"mine": mine}
         if tag:
             params["tag"] = tag
@@ -67,8 +70,9 @@ class PracticeHubClient:
 
         return resp.json()
 
-    @mcp.tool()
+    @tool
     def get_post(self, post_id: int):
+        """GETs a post by ID"""
         try:
             resp = requests.get(
                 f"{self.base}/api/v1/posts/{post_id}", headers=self.headers)
@@ -80,8 +84,9 @@ class PracticeHubClient:
             return None
         return resp.json()
 
-    @mcp.tool()
+    @tool
     def update_post(self, post_id: int, body: str):
+        """UPDATEs a post by ID"""
         try:
             post = requests.patch(
                 f"{self.base}/api/v1/posts/{post_id}", headers=self.headers, json={"body": body})
@@ -94,8 +99,9 @@ class PracticeHubClient:
 
         return post.json()
 
-    @mcp.tool()
+    @tool
     def delete_post(self, post_id: int) -> bool:
+        """DELETEs a post by ID"""
         try:
             resp = requests.delete(f"{self.base}/api/v1/posts/{post_id}",
                                    headers=self.headers)
@@ -115,15 +121,10 @@ if __name__ == "__main__":
 
     client = PracticeHubClient(BASE, TOKEN)
 
+    # Claude code
     new_post = client.create_post("Test Post", "test")
-    if (new_post != None):
-        post_id = new_post["id"]
-        post = client.get_post(post_id)
-        print(f"Successfully created post {post}")
-
-        client.update_post(post_id, "updated text")
-        post = client.get_post(post_id)
-        print(f"Successfully updated post {post}")
-
-        client.delete_post(post_id)
-        print("Deleted newly created post")
+    for method in (client.create_post, client.list_posts, client.get_post,
+                   client.update_post, client.delete_post):
+        mcp.add_tool(method)
+    mcp.run()
+    # /Claude
