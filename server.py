@@ -6,6 +6,7 @@ Project: Mini Project 7 - MCP Server
 
 import os
 import requests
+import sys
 from fastmcp import FastMCP
 from fastmcp.tools import tool
 
@@ -28,13 +29,14 @@ class PracticeHubClient:
     def print_status_error(self, status_code: int):
         if (status_code == 401):
             print(
-                "401 Error: Token is missing or invalid. Please resubmit the token into environment variables.")
+                "401 Error: Token is missing or invalid. Please resubmit the token into environment variables.", file=sys.stderr)
         elif (status_code == 404):
-            print("404 Error: Post does not exist.")
+            print("404 Error: Post does not exist.", file=sys.stderr)
         elif (status_code == 403):
-            print("403 Error: Attempting to edit someone else's post.")
+            print("403 Error: Attempting to edit someone else's post.",
+                  file=sys.stderr)
         elif (status_code == 422):
-            print("422 Error: Field is either missing or is too short. Please ensure that all parameters are valid.")
+            print("422 Error: Field is either missing or is too short. Please ensure that all parameters are valid.", file=sys.stderr)
 
     @tool
     def create_post(self, title, body="", tags=None):
