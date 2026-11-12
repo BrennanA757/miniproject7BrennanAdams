@@ -21,12 +21,12 @@ Project for creating, editing, retrieving, and deleting posts at https://practic
 
 ### Installing
 
-- Run 'git clone https://github.com/BrennanA757/miniproject7BrennanAdams.git' and 'cd Week3'
+- Run 'git clone https://github.com/BrennanA757/miniproject7BrennanAdams.git' inside the desired directory.
 - requirements.txt also includes the 'requests' library.
 
 ### Executing program
 
-- Install the library by running 'pip install requests'
+- Install the library by running 'pip install requests fastmcp'
 - Set the environment variable PRACTICE_API_TOKEN by running '$env:PRACTICE_API_TOKEN = "your token here"'
 
 ## Help
@@ -80,4 +80,5 @@ None
 
 ## AI Usage
 
-I used AI for testing the code that I created, but nothing much outside of that.
+I used AI for testing the code that I created, but nothing much outside of that. Anything inside 
+a "# Claude Code" comment was written by Claude and was not modified by me.
