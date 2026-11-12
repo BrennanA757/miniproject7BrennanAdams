@@ -2,11 +2,11 @@
 
 ### Brennan Adams
 
-### Mini Project 1
+### Mini Project 7
 
 # Project Title
 
-Client.py
+MCP Setup & Troubleshooting
 
 ## Description
 
@@ -21,7 +21,7 @@ Project for creating, editing, retrieving, and deleting posts at https://practic
 
 ### Installing
 
-- Run 'git clone https://github.com/BrennanA757/APWP_MP1.git' and 'cd APWP_MP1'
+- Run 'git clone https://github.com/BrennanA757/miniproject7BrennanAdams.git' and 'cd Week3'
 - requirements.txt also includes the 'requests' library.
 
 ### Executing program
@@ -80,4 +80,4 @@ None
 
 ## AI Usage
 
-I used AI to help write and understand the update, get, and delete functions for posts. It also helped a little bit with the status_check function.
+I used AI for testing the code that I created, but nothing much outside of that.
