@@ -1,0 +1,2 @@
+create a new mcp server: claude mcp add practice-hub -e PRACTICE_API_URL=https://practice.fhsucyber.com -e PRACTICE_API_TOKEN=<new token> -- "<project>\.venv\Scripts\python.exe" server.py
+test mcp server: claude run practice-hub

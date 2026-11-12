@@ -124,7 +124,6 @@ if __name__ == "__main__":
     client = PracticeHubClient(BASE, TOKEN)
 
     # Claude code
-    new_post = client.create_post("Test Post", "test")
     for method in (client.create_post, client.list_posts, client.get_post,
                    client.update_post, client.delete_post):
         mcp.add_tool(method)
